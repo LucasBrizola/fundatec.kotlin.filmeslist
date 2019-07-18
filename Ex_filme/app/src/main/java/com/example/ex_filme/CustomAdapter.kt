@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.ex_filme.Movie
 import com.example.ex_filme.R
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.list_item_movie.view.*
 
 
 class CustomAdapter(var context: Context, var movieList: ArrayList<Movie>) : androidx.recyclerview.widget.RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -25,7 +27,7 @@ class CustomAdapter(var context: Context, var movieList: ArrayList<Movie>) : and
         return movieList.size
     }
 
-    fun updateList(list:ArrayList<String>){
+    fun updateList(list:ArrayList<Movie>){
         movieList = list;
         notifyDataSetChanged()
 
@@ -39,10 +41,11 @@ class CustomAdapter(var context: Context, var movieList: ArrayList<Movie>) : and
     //the class is hodling the list view
     class ViewHolder(itemView: View, var ctx: Context) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(item: String) {
+        fun bindItems(item: Movie) {
 
-            itemView.text1.text = item
-
+            itemView.txtTitle.text = item.title
+            itemView.txtYear.text = item.year
+    Picasso.get().load(item.poster ).fit().centerCrop().into(itemView.imagePoster)
             itemView.setOnClickListener {
                 // Toast the values
                 Toast.makeText(ctx,
